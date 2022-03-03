@@ -1,10 +1,8 @@
-import {UserList} from "../components/profile/userList";
+import {UserList} from "../components/profile/user-list";
 import {screen, render} from "@testing-library/react";
 import {HashRouter} from "react-router-dom";
 import {findAllUsers} from "../services/users-service";
 import axios from "axios";
-
-jest.mock('axios');
 
 const MOCKED_USERS = [
   {username: 'ellen_ripley', password: 'lv426', email: 'repley@weyland.com', _id: "123"},
@@ -26,10 +24,11 @@ test('user list renders async', async () => {
     <HashRouter>
       <UserList users={users}/>
     </HashRouter>);
-  const linkElement = screen.getByText(/NASA/i);
+  const linkElement = screen.getByText(/spacex/i);
   expect(linkElement).toBeInTheDocument();
 })
 
+// jest.mock('axios');
 test('user list renders mocked', async () => {
   axios.get.mockImplementation(() =>
     Promise.resolve({ data: {users: MOCKED_USERS} }));

@@ -27,7 +27,6 @@ describe('createUser', () => {
   test('can insert new users with REST API', async () => {
     // insert new user in the database
     const newUser = await createUser(ripley);
-
     // verify inserted user's properties match parameter user
     expect(newUser.username).toEqual(ripley.username);
     expect(newUser.password).toEqual(ripley.password);
@@ -103,7 +102,6 @@ describe('findUserById',  () => {
     expect(existingUser.email).toEqual(adam.email);
   });
 });
-
 
 describe('findAllUsers',  () => {
 
