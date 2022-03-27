@@ -28,7 +28,7 @@ const Profile = () => {
       <div className="border border-bottom-0">
         <h4 className="p-2 mb-0 pb-0 fw-bolder">
           {profile.username}
-          <i className="fa fa-badge-check text-primary"></i></h4>
+          <i className="fa fa-badge-check text-primary"/></h4>
         <span className="ps-2">67.6K Tuits</span>
         <div className="mb-5 position-relative">
           <img className="w-100" src="../images/nasa-profile-header.jpg"/>
@@ -49,7 +49,7 @@ const Profile = () => {
 
         <div className="p-2">
           <h4 className="fw-bolder pb-0 mb-0">
-            {profile.username}<i className="fa fa-badge-check text-primary"></i>
+            {profile.username}<i className="fa fa-badge-check text-primary"/>
           </h4>
           <h6 className="pt-0">@{profile.username}</h6>
           <p className="pt-2">
