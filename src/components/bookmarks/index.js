@@ -1,5 +1,5 @@
 import React from "react";
-import {Tuits} from "../tuits/index";
+import Tuits from "../tuits/index";
 
 function Bookmarks () {
   return(
