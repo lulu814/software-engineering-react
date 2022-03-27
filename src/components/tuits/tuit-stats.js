@@ -26,7 +26,17 @@ const TuitStats = ({
                     setDislikeTuit(false);
                 }
             })
-
+    // const isUserLoggedIn = () =>
+    //     service.profile()
+    //         .then((user) => {
+    //             if (user) {
+    //                 setLoggedIn(true);
+    //             } else {
+    //                 setLoggedIn(false);
+    //             }
+    //         })
+    //
+    // useEffect(isUserLoggedIn);
     useEffect(isTuitLikedByMe);
     useEffect(isTuitDislikedByMe);
     return (

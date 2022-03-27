@@ -1,18 +1,29 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Tuits from "../tuits/index";
 import * as service from "../../services/tuits-service";
-import {useEffect, useState} from "react";
+import * as security_service from "../../services/security-service"
 import {useLocation, useParams} from "react-router-dom";
 
 const Home = () => {
     const location = useLocation();
     const {uid} = useParams();
+    const [isLoggedIn, setLoggedIn] = useState(false);
     const [tuits, setTuits] = useState([]);
     const [tuit, setTuit] = useState('');
     const userId = uid;
+    const isUserLoggedIn = () =>
+        security_service.profile()
+            .then((user) => {
+                if (user) {
+                    setLoggedIn(true);
+                } else {
+                    setLoggedIn(false);
+                }
+            })
     const findTuits = () =>
         service.findAllTuits()
             .then(tuits => setTuits(tuits));
+    useEffect(isUserLoggedIn);
     useEffect(() => {
         let isMounted = true;
         findTuits()
@@ -48,18 +59,18 @@ const Home = () => {
                                 <i className="far fa-map-location me-3"/>
                             </div>
                             <div className="col-2">
-                                <a onClick={createTuit}
-                                   className={`btn btn-primary rounded-pill fa-pull-right
+                                {isLoggedIn && <a onClick={createTuit}
+                                                  className={`btn btn-primary rounded-pill fa-pull-right
                                 fw-bold ps-4 pe-4`}>
                                     Tuit
-                                </a>
+                                </a>}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <Tuits tuits={tuits}
-                   refreshTuits={findTuits}/>
+            {isLoggedIn && <Tuits tuits={tuits}
+                                  refreshTuits={findTuits}/>}
         </div>
     );
 };

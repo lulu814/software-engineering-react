@@ -16,7 +16,7 @@ import {Login} from "../profile/login";
 import Signup from "../profile/signup";
 import TuitScreen from "../tuits/tuit-screen";
 
-function Tuiter () {
+function  Tuiter () {
   return(
       <HashRouter>
         <div className="container">
