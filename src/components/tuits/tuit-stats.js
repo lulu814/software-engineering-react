@@ -19,9 +19,7 @@ const TuitStats = ({
 
     const isTuitDislikedByMe = () =>
         service.tuitDislikedByMe('me', tuit._id)
-            .then(
-                (dislike) => {
-                    console.log("dislike=>", dislike)
+            .then((dislike) => {
                 if (dislike) {
                     setDislikeTuit(true);
                 } else {
