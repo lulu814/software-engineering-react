@@ -6,8 +6,10 @@ const Signup = () => {
     const [newUser, setNewUser] = useState({});
     const navigate = useNavigate();
     const signup = () =>
+        // If the response is successful the screen navigates to the profile screen.
+        // Otherwise an alert pops up and stays in the signup screen.
         service.register(newUser)
-            .then(() => navigate('/home'))
+            .then(() => navigate('/profile'))
             .catch(e => alert(e));
     return (
         <div>
