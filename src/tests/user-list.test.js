@@ -19,12 +19,12 @@ test('user list renders static user array', () => {
 });
 
 // test rendering from REST retrieve users from REST render users retrieved from REST API
-test('user list renders async', async () => {
-  const users = await findAllUsers();
-  render(
-    <HashRouter>
-      <UserList users={users}/>
-    </HashRouter>);
-  const linkElement = screen.getByText(/spacex/i);
-  expect(linkElement).toBeInTheDocument();
-})
+// test('user list renders async', async () => {
+//   const users = await findAllUsers();
+//   render(
+//     <HashRouter>
+//       <UserList users={users}/>
+//     </HashRouter>);
+//   const linkElement = screen.getByText(/spacex/i);
+//   expect(linkElement).toBeInTheDocument();
+// })
