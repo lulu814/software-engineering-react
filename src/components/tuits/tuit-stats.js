@@ -19,7 +19,9 @@ const TuitStats = ({
 
     const isTuitDislikedByMe = () =>
         service.tuitDislikedByMe('me', tuit._id)
-            .then((dislike) => {
+            .then(
+                (dislike) => {
+                    console.log("dislike=>", dislike)
                 if (dislike) {
                     setDislikeTuit(true);
                 } else {
@@ -53,10 +55,10 @@ const TuitStats = ({
             </span>
             </div>
             <div className="col">
-                <span className="col" onClick={() => dislikeTuit(tuit)}>
+                <span className="col" onClick={() => dislikeTuit(tuit)} data-testid="test-dislikeButton">
                 {
                     isDislikedByMe &&
-                    <i className="fa-solid fa-thumbs-down me-1" style={{color: 'blue'}}/>
+                    <i className="fa-solid fa-thumbs-down me-1" style={{color: 'blue'}} data-testid="test-dislikedByMe"/>
                 }
                     {
                         !isDislikedByMe &&
