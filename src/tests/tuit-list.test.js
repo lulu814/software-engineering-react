@@ -34,5 +34,3 @@ test('tuit list renders static tuit array', () => {
 //   const linkElement = screen.getByText(/SpaceX Dragon/i);
 //   expect(linkElement).toBeInTheDocument()
 // })
-
-
