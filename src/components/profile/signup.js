@@ -2,6 +2,15 @@ import {useState} from "react";
 import * as service from "../../services/security-service";
 import {useNavigate} from "react-router-dom";
 
+/**
+ * Component for sign up where user will register with username, password, email.
+ *
+ * @component
+ * @example
+ * return (
+ *      <Signup />
+ * )
+ */
 const Signup = () => {
     const [newUser, setNewUser] = useState({});
     const navigate = useNavigate();

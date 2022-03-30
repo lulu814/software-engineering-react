@@ -7,6 +7,24 @@ import Media from "./media";
 import MyLikes from "./my-likes";
 import MyDislikes from "./my-dislikes";
 
+/**
+ * Component for showing the profile of the user.
+ *
+ * It also contains the following tabs:
+ * <ul>
+ *     <li>Tuits</li>
+ *     <li>Tuits & replies</li>
+ *     <li>Media</li>
+ *     <li>Likes</li>
+ *     <li>Dislikes</li>
+ * </ul>
+ *
+ * @component
+ * @example
+ * return (
+ *      <Profile />
+ * )
+ */
 const Profile = () => {
     const navigate = useNavigate();
     const location = useLocation();
