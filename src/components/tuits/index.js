@@ -24,14 +24,16 @@ const Tuits = ({tuits = [], refreshTuits}) => {
 
     const deleteTuit = (tid) =>
         tuitService.deleteTuit(tid)
-            .then(refreshTuits);
+            .then(refreshTuits)
+            .catch(e => alert(e));
 
     return (
         <div>
             <ul className="ttr-tuits list-group">
                 {
                     tuits && tuits.map(tuit =>
-                        <Tuit key={tuit._id}
+                        <Tuit className="the-tuit"
+                              key={tuit._id}
                               deleteTuit={deleteTuit}
                               likeTuit={likeTuit}
                               dislikeTuit={dislikeTuit}
