@@ -5,24 +5,26 @@ import React from 'react'
 import {act, create} from "react-test-renderer"
 import Profile from "../components/profile/index"
 import MyDislikes from "../components/profile/my-dislikes"
-import {screen, render, fireEvent} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import {HashRouter} from "react-router-dom";
-import axios from "axios";
-import TuitStats from "../components/tuits/tuit-stats";
 import Tuits from "./react-test-renderer/tuits/tuits";
-import tuitsJson from "./react-test-renderer/tuits/tuits.json";
-const MOCKED_USER = {username: "alice", _id: "123"};
-const MOCKED_TUIT =
+
+const MOCKED_TUITS =
     [{tuit: "alice's tuit", postBy: "123", _id: "1231", stats: {likes: 31, dislikes: 11}},
         {tuit: "bob's tuit", postBy: "153", _id: "1253", stats: {likes: 131, dislikes: 211}}];
+// const MOCKED_TUITS = [
+//     {tuit: "alice's tuit", postBy: "123", _id: "1231"},
+//     {tuit: "bob's tuit", postBy: "234", _id: "2341"},
+//     {tuit: "charlie's tuit", postBy: "345", _id: "3451"}
+// ];
 
-jest.mock("axios");
-console.error = () => {};
-test('renders dislikes tab on profile', async() => {
+console.error = () => {
+};
+test('renders dislikes tab on profile', async () => {
     // eslint-disable-next-line testing-library/no-unnecessary-act
-    await act( async () => render(
+    await act(async () => render(
         <HashRouter>
-            <Profile />
+            <Profile/>
         </HashRouter>
     ));
 
@@ -35,47 +37,38 @@ test('renders a list of tuits on the screen', () => {
     act(() => {
         tuitsRender = create(
             <Tuits
-                tuits={MOCKED_TUIT}/>
+                tuits={MOCKED_TUITS}/>
         )
     })
     const root = tuitsRender.root
     // eslint-disable-next-line testing-library/await-async-query
     const ttrTuits = root.findAllByProps({
-        className: 'ttr-tuit'})
-    expect(ttrTuits.length).toBe(MOCKED_TUIT.length)
+        className: 'ttr-tuit'
+    })
+    expect(ttrTuits.length).toBe(MOCKED_TUITS.length)
     ttrTuits.forEach((ttrTuit, ndx) => {
         // eslint-disable-next-line testing-library/no-node-access
-        expect(ttrTuit.props.children).toBe(MOCKED_TUIT[ndx].tuit)
+        expect(ttrTuit.props.children).toBe(MOCKED_TUITS[ndx].tuit)
     })
 })
-// test('renders disliked tuit under dislike screen', async() => {
-//     axios.get.mockImplementation(() => Promise.resolve({ data: MOCKED_TUIT }));
-//
-//
-//     // eslint-disable-next-line testing-library/no-unnecessary-act
-//     // await act( async () => render(
-//     //     <HashRouter>
-//     //         <MyDislikes />
-//     //     </HashRouter>
-//     // ));
-//     //
-//     // const dislikeTuit = screen.getByText(/alice's tuit/i);
-//     // expect(dislikeTuit).toBeInTheDocument();
-//     let tuitsRender
-//     act(() => {
-//         tuitsRender = create(
-//             <MyDislikes />
-//         )
-//     })
-//
-// // Stub the initial state
-//     const stubInitialState = MOCKED_TUIT
-//
-// // Mock useState before rendering your component
-//     React.useState = jest.fn().mockReturnValue([stubInitialState, {}])
-//     const root = tuitsRender.root
-//     // eslint-disable-next-line testing-library/await-async-query
-//     const ttrTuits = root.findAllByProps({
-//         className: 'ttr-tuit'})
-//     console.log(ttrTuits)
-// })
+
+test('renders disliked tuit under dislike screen', async () => {
+    let tuitsRender
+    act(() => {
+        tuitsRender = create(
+            <MyDislikes tuitList={MOCKED_TUITS}/>
+        )
+    })
+
+    const root = tuitsRender.root
+    // eslint-disable-next-line testing-library/await-async-query
+    const ttrTuits = root.findAllByProps({
+        className: 'tuit-content'
+    })
+
+    expect(ttrTuits.length).toBe(MOCKED_TUITS.length)
+    ttrTuits.forEach((ttrTuit, ndx) => {
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(ttrTuit.props.children[0]).toBe(MOCKED_TUITS[ndx].tuit)
+    })
+})

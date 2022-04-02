@@ -10,16 +10,15 @@ import {useEffect, useState} from "react";
  *      <MyDislikes />
  * )
  */
-
 // Component uses findAllUsersThatDislikedTuit service to retrieve the tuits disliked by "me"
 // and renders them using the same tuits component
-const MyDislikes = () => {
-    const [dislikedTuits, setDislikedTuits] = useState([]);
+const MyDislikes = ({tuitList=[]}) => {
+    const [dislikedTuits, setDislikedTuits] = useState(tuitList);
     const findTuitsDislike = () =>
         service.findAllTuitsDislikedByUser('me')
             .then((tuits) => setDislikedTuits(tuits))
             .catch(e => alert(e));
-    useEffect(findTuitsDislike, []);
+    // useEffect(findTuitsDislike, []);
 
     return (
         <div>
@@ -27,4 +26,5 @@ const MyDislikes = () => {
         </div>
     );
 };
+
 export default MyDislikes;

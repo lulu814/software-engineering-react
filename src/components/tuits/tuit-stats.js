@@ -5,6 +5,8 @@ import * as service from "../../services/likes-service";
  * Component for showing tuit stats including number of replies, retuits, likes and dislikes.
  * User can also like/dislike by clicking the according button.
  *
+ * @param {boolean} likedByMe  check if set to false as default
+ * @param dislikedByMe
  * @param tuit Tuit object that has the stats
  * @param likeTuit function triggered when user click like button
  * @param dislikeTuit function triggered when user click dislike button
@@ -17,11 +19,11 @@ import * as service from "../../services/likes-service";
  * )
  */
 const TuitStats = ({
-                       tuit, likeTuit, dislikeTuit = () => {
+                       likedByMe=false, dislikedByMe=false,tuit, likeTuit, dislikeTuit = () => {
     }
                    }) => {
-    const [isLikedByMe, setLikeTuit] = useState(false);
-    const [isDislikedByMe, setDislikeTuit] = useState(false);
+    const [isLikedByMe, setLikeTuit] = useState(likedByMe);
+    const [isDislikedByMe, setDislikeTuit] = useState(dislikedByMe);
     const isTuitLikedByMe = () => {
         service.tuitLikedByMe('me', tuit._id)
             .then((like) => {
@@ -31,7 +33,6 @@ const TuitStats = ({
                     setLikeTuit(false);
                 }
             }).catch(e => alert(e))
-        return
     }
 
     const isTuitDislikedByMe = () => {
@@ -43,7 +44,6 @@ const TuitStats = ({
                     setDislikeTuit(false);
                 }
             }).catch(e => alert(e))
-        return
     }
 
     useEffect(isTuitLikedByMe);

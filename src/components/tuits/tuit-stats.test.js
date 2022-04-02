@@ -3,7 +3,6 @@
  */
 import {act, create} from 'react-test-renderer';
 import TuitStats from "./tuit-stats";
-import axios from "axios";
 
 test('stats render correctly', () => {
     let stats = {
@@ -57,7 +56,8 @@ test('like increases when click like button', () => {
             tuitStats.update(
                 <TuitStats
                     tuit={{stats: stats}}
-                    likeTuit={() => {}}
+                    likeTuit={() => {
+                    }}
                 />)
         })
     }
@@ -81,7 +81,9 @@ test('like increases when click like button', () => {
 
     let likesText = likesCounter.children[0];
 
-    act(() => {likeTuitButton.props.onClick()})
+    act(() => {
+        likeTuitButton.props.onClick()
+    })
     likesText = likesCounter.children[0];
     expect(likesText).toBe('124');
 });
@@ -100,7 +102,8 @@ test('dislike increases when click dislike button', () => {
             tuitStats.update(
                 <TuitStats
                     tuit={{stats: stats}}
-                    dislikeTuit={() => {}}
+                    dislikeTuit={() => {
+                    }}
                 />)
         })
     }
@@ -130,9 +133,67 @@ test('dislike increases when click dislike button', () => {
 
     let dislikesText = dislikesCounter.children[0];
 
-    act(() => {dislikeTuitButton.props.onClick()})
+    act(() => {
+        dislikeTuitButton.props.onClick()
+    })
     dislikesText = dislikesCounter.children[0];
     expect(dislikesText).toBe('21');
     // eslint-disable-next-line jest/valid-expect
     expect(highlightDislikeButton);
+});
+
+test('dislike button highlight turns to solid if the tuit is disliked by the user', () => {
+    let stats = {
+        likes: 123,
+        replies: 234,
+        retuits: 345,
+        dislikes: 20
+    }
+    let tuitStats
+    act(() => {
+        tuitStats = create(
+            <TuitStats
+                dislikedByMe={true}
+                tuit={{stats: stats}}
+            />
+        );
+    })
+
+    const root = tuitStats.root;
+
+    // eslint-disable-next-line testing-library/await-async-query
+    const solidDislikeButton = root.findByProps(
+        {className: 'fa-solid fa-thumbs-down me-1'}
+    )
+
+    // eslint-disable-next-line jest/valid-expect
+    expect(solidDislikeButton);
+});
+
+test('dislike button is not highlighted if the tuit is not disliked by the user', () => {
+    let stats = {
+        likes: 123,
+        replies: 234,
+        retuits: 345,
+        dislikes: 20
+    }
+    let tuitStats
+    act(() => {
+        tuitStats = create(
+            <TuitStats
+                dislikedByMe={false}
+                tuit={{stats: stats}}
+            />
+        );
+    })
+
+    const root = tuitStats.root;
+
+    // eslint-disable-next-line testing-library/await-async-query
+    const lightDislikeButton = root.findByProps(
+        {className: 'fa-light fa-thumbs-down me-1'}
+    )
+
+    // eslint-disable-next-line jest/valid-expect
+    expect(lightDislikeButton);
 });
